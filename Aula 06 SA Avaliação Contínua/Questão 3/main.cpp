@@ -7,80 +7,80 @@
 
 using namespace std;
 
-int MaiorValor(int value1, int value2)
+int MaiorValor(int valor1, int valor2)
 {
-    return value1 > value2 ? value1 : value2;
+    return valor1 > valor2 ? valor1 : valor2;
 }
 
-int MaiorValor(int value1, int value2, int value3)
+int MaiorValor(int valor1, int valor2, int value3)
 {
-    int values[3] = {value1, value2, value3};
-    int greatestValue = values[0];
-    int currentValue;
-    for (currentValue = 1; currentValue < 3; currentValue++)
+    int valores[3] = {valor1, valor2, value3};
+    int maiorValor = valores[0];
+    int valorAtual;
+    for (valorAtual = 1; valorAtual < 3; valorAtual++)
     {
-        if (values[currentValue] > greatestValue)
-            greatestValue = values[currentValue];
+        if (valores[valorAtual] > maiorValor)
+            maiorValor = valores[valorAtual];
     }
-    return greatestValue;
+    return maiorValor;
 }
 
-int MaiorValor(int value1, int value2, int value3, int value4)
+int MaiorValor(int valor1, int valor2, int value3, int value4)
 {
-    int values[4] = {value1, value2, value3, value4};
-    int greatestValue = values[0];
-    int currentValue;
-    for (currentValue = 1; currentValue < 4; currentValue++)
+    int valores[4] = {valor1, valor2, value3, value4};
+    int maiorValor = valores[0];
+    int valorAtual;
+    for (valorAtual = 1; valorAtual < 4; valorAtual++)
     {
-        if (values[currentValue] > greatestValue)
-            greatestValue = values[currentValue];
+        if (valores[valorAtual] > maiorValor)
+            maiorValor = valores[valorAtual];
     }
-    return greatestValue;
+    return maiorValor;
 }
 
 int main()
 {
-    int quantity;
-    int values[4];
+    int quantidade;
+    int valores[4];
 
-Choose:
-    int currentNumber = 0;
-    cout << "How many values do you wanna check? Between 2 and 4 values: ";
-    cin >> quantity;
+Escolha:
+    int numeroAtual = 0;
+    cout << "Quantos valores você deseja verificar? Entre 2 e 4 valores: ";
+    cin >> quantidade;
 
-    switch (quantity)
+    switch (quantidade)
     {
         {
         case 2:
-            for (currentNumber = 0; currentNumber < quantity; currentNumber++)
+            for (numeroAtual = 0; numeroAtual < quantidade; numeroAtual++)
             {
-                cout << "Value " << currentNumber + 1 << ": ";
-                cin >> values[currentNumber];
+                cout << "Value " << numeroAtual + 1 << ": ";
+                cin >> valores[numeroAtual];
             }
 
-            cout << "Maior valor é: " << MaiorValor(values[0], values[1]);
+            cout << "Maior valor é: " << MaiorValor(valores[0], valores[1]);
             break;
         case 3:
-            for (currentNumber = 0; currentNumber < quantity; currentNumber++)
+            for (numeroAtual = 0; numeroAtual < quantidade; numeroAtual++)
             {
-                cout << "Value " << currentNumber + 1 << ": ";
-                cin >> values[currentNumber];
+                cout << "Valor " << numeroAtual + 1 << ": ";
+                cin >> valores[numeroAtual];
             }
 
-            cout << "Maior valor é: " << MaiorValor(values[0], values[1], values[2]);
+            cout << "Maior valor é: " << MaiorValor(valores[0], valores[1], valores[2]);
             break;
         case 4:
-            for (currentNumber = 0; currentNumber < quantity; currentNumber++)
+            for (numeroAtual = 0; numeroAtual < quantidade; numeroAtual++)
             {
-                cout << "Value " << currentNumber + 1 << ": ";
-                cin >> values[currentNumber];
+                cout << "Valor " << numeroAtual + 1 << ": ";
+                cin >> valores[numeroAtual];
             }
 
-            cout << "Maior valor é: " << MaiorValor(values[0], values[1], values[2], values[3]);
+            cout << "Maior valor é: " << MaiorValor(valores[0], valores[1], valores[2], valores[3]);
             break;
         default:
-            cout << "You chose an invalid quantity !";
-            goto Choose;
+            cout << "Voce escolheu uma quantidade invalida !";
+            goto Escolha;
             break;
         }
 

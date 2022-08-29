@@ -8,70 +8,70 @@
 
 using namespace std;
 
-int CalculatePerimeter(int sideValue)
+int CalcularPerimetro(int valorLado)
 {
-    return sideValue * 4;
+    return valorLado * 4;
 }
 
-int CalculatePerimeter(int sideValue1, int sideValue2, int sideValue3)
+int CalcularPerimetro(int valorLado1, int valorLado2, int valorLado3)
 {
-    return sideValue1 + sideValue2 + sideValue3;
+    return valorLado1 + valorLado2 + valorLado3;
 }
 
-int CalculatePerimeter(int sideValue1, int sideValue2, int sideValue3, int sideValue4, int sideValue5)
+int CalcularPerimetro(int valorLado1, int valorLado2, int valorLado3, int valorLado4, int valorLado5)
 {
-    return sideValue1 + sideValue2 + sideValue3 + sideValue4 + sideValue5;
+    return valorLado1 + valorLado2 + valorLado3 + valorLado4 + valorLado5;
 }
 
 int main()
 {
-    int polygonType;
-    int currentSide = 0;
+    int tipoPoligono;
+    int ladoAtual = 0;
 
-Choose:
-    cout << "Wish Polygon do you want to calculate the perimeter?:\n1 - Triangle\n2 - Square\n3 - Pentagon\nR:";
-    cin >> polygonType;
+Escolha:
+    cout << "Qual poligono você gostaria de calcular o perimetro?:\n1 - Triangulo\n2 - Quadrado\n3 - Pentagono\nR:";
+    cin >> tipoPoligono;
 
-    switch (polygonType)
+    switch (tipoPoligono)
     {
     case 1:
-        int sidesTriangle[3];
-		currentSide = 0;
+        int ladosTriangulo[3];
+		ladoAtual = 0;
 		
-        while (currentSide < 3)
+        while (ladoAtual < 3)
         {
-            cout << "Side " << currentSide << ": ";
-            cin >> sidesTriangle[currentSide];
-            currentSide++;
+            cout << "Lado " << ladoAtual + 1 << ": ";
+            cin >> ladosTriangulo[ladoAtual];
+            ladoAtual++;
         }
 
-        cout << CalculatePerimeter(sidesTriangle[0], sidesTriangle[1], sidesTriangle[2]);
+        cout << CalcularPerimetro(ladosTriangulo[0], ladosTriangulo[1], ladosTriangulo[2]);
         break;
         
     case 2:
-        int sideValue;
-        cout << "Side value: ";
-        cin >> sideValue;
+        int valorLado;
+        cout << "Valor do Lado: ";
+        cin >> valorLado;
 
-        cout << CalculatePerimeter(sideValue);
+        cout << CalcularPerimetro(valorLado);
         break;
         
     case 3:
-        int sidesPentagon[5];
-        currentSide = 0;
+        int ladosPentagono[5];
+        ladoAtual = 0;
 
-        while (currentSide < 5)
+        while (ladoAtual < 5)
         {
-            cout << "Side " << currentSide << ": ";
-            cin >> sidesPentagon[currentSide];
-            currentSide++;
+            cout << "Lado " << ladoAtual + 1 << ": ";
+            cin >> ladosPentagono[ladoAtual];
+            ladoAtual++;
         }
 
-        cout << CalculatePerimeter(sidesPentagon[0], sidesPentagon[1], sidesPentagon[2], sidesPentagon[3], sidesPentagon[4]);
+        cout << CalcularPerimetro(ladosPentagono[0], ladosPentagono[1], ladosPentagono[2], ladosPentagono[3], ladosPentagono[4]);
         break;
     default:
-        cout << "You chose an invalid polygon type!" << endl;
-        goto Choose;
+        cout << "Você escolheu um tipo invalido!" << endl;
+        goto Escolha;
         break;
     }
 
