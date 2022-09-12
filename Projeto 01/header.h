@@ -1,0 +1,32 @@
+#define TAMANHO_MAX 75
+
+void DesenharMapa(char mapa[25][25]);
+void DesenharMapa(char mapa[50][50]);
+void DesenharMapa(char mapa[75][75]);
+void ImprimirMapa(char mapa[25][25]);
+void ImprimirMapa(char mapa[50][50]);
+void ImprimirMapa(char mapa[75][75]);
+void ImprimirMenu(int *escolha);
+void ImprimirTutorial();
+void ImprimirSair();
+int PosicaoXJogador();
+int PosicaoYJogador();
+int PosicaoXPorta();
+int PosicaoXChave();
+int PosicaoYChave();
+bool VerificarSePodeInserir(char mapaPosicao, char insercao);
+void JogarFase1(char mapa[25][25]);
+void JogarFase2(char mapa[50][50]);
+void JogarFase3(char mapa[75][75]);
+bool IrParaCima(char proximoChar);
+bool IrParaBaixo(char proximoChar);
+bool IrParaDireita(char proximoChar);
+bool IrParaEsquerda(char proximoChar);
+bool Interagir(char mapa[25][25], int posicaoJogadorX, int posicaoJogadorY);
+bool Interagir(char mapa[50][50], int posicaoJogadorX, int posicaoJogadorY);
+bool Interagir(char mapa[75][75], int posicaoJogadorX, int posicaoJogadorY);
+int PegarPosicaoXPorta(char mapa[25][25]);
+int PegarPosicaoXPorta(char mapa[50][50]);
+int PegarPosicaoXPorta(char mapa[75][75]);
+bool Vitoria(int posicaoJogadorY);
+void ProximoLevel();
