@@ -4,7 +4,7 @@
 int currentMapLength = 25;
 char map[75][75];
 
-int level = 3;
+int level = 1;
 
 int chance = 1;
 
@@ -72,6 +72,7 @@ void Hurt();
 void Interact();
 void ReplaceKey();
 void RestartLevel();
+void Teletransport();
 
 void MainMenu();
 void Tutorial();

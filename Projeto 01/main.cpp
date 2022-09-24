@@ -45,6 +45,8 @@ void DrawMap()
 
 void PrintMap()
 {
+    cout << "Lifes: " << 3 - chance << "\n\n";
+
     int i, j;
     for (i = 0; i < currentMapLength; i++)
     {
@@ -98,7 +100,7 @@ void AddButton()
 {
     while (true)
     {
-        int buttonPositionX = rand() % (currentMapLength - 2) + 1;
+        int buttonPositionX = rand() % 3 + 1;
         int buttonPositionY = rand() % (currentMapLength - 2) + 1;
 
         if (map[buttonPositionX][buttonPositionY] == emptyChar)
@@ -210,7 +212,8 @@ bool isMoveAvailable(char direction)
         if (map[player.x - 1][player.y] == emptyChar ||
             (map[player.x - 1][player.y] == door.character && door.character == '=') ||
             map[player.x - 1][player.y] == button.character ||
-            map[player.x - 1][player.y] == thorn)
+            map[player.x - 1][player.y] == thorn ||
+            map[player.x - 1][player.y] == teletransporter.character)
             return true;
     }
 
@@ -219,7 +222,8 @@ bool isMoveAvailable(char direction)
         if (map[player.x + 1][player.y] == emptyChar ||
             (map[player.x + 1][player.y] == door.character && door.character == '=') ||
             map[player.x + 1][player.y] == button.character ||
-            map[player.x + 1][player.y] == thorn)
+            map[player.x + 1][player.y] == thorn ||
+            map[player.x + 1][player.y] == teletransporter.character)
             return true;
     }
 
@@ -228,7 +232,8 @@ bool isMoveAvailable(char direction)
         if (map[player.x][player.y - 1] == emptyChar ||
             (map[player.x][player.y - 1] == door.character && door.character == '=') ||
             map[player.x][player.y - 1] == button.character ||
-            map[player.x][player.y - 1] == thorn)
+            map[player.x][player.y - 1] == thorn ||
+            map[player.x][player.y - 1] == teletransporter.character)
             return true;
     }
 
@@ -237,7 +242,8 @@ bool isMoveAvailable(char direction)
         if (map[player.x][player.y + 1] == emptyChar ||
             (map[player.x][player.y + 1] == door.character && door.character == '=') ||
             map[player.x][player.y + 1] == button.character ||
-            map[player.x][player.y + 1] == thorn)
+            map[player.x][player.y + 1] == thorn ||
+            map[player.x][player.y + 1] == teletransporter.character)
             return true;
     }
 
@@ -379,8 +385,22 @@ bool isNextMoveTeletransporter(char direction)
     return false;
 }
 
-void Teletransport() {
-
+void Teletransport()
+{
+    if (player.x == teletransporter.firstX && player.y == teletransporter.firstY)
+    {
+        map[player.x][player.y] = teletransporter.character;
+        player.x = teletransporter.secondX;
+        player.y = teletransporter.secondY;
+        map[player.x][player.y] = player.character;
+    }
+    else
+    {
+        map[player.x][player.y] = teletransporter.character;
+        player.x = teletransporter.firstX;
+        player.y = teletransporter.firstY;
+        map[player.x][player.y] = player.character;
+    }
 }
 
 void Hurt()
@@ -434,6 +454,7 @@ void MovePlayer(char direction)
 {
     bool backButton = false;
     bool backTeletransport = false;
+    bool teletransport = false;
 
     if (isNextMoveButton(direction))
         ReplaceKey();
@@ -446,9 +467,10 @@ void MovePlayer(char direction)
         return;
     }
 
-    if(isNextMoveTeletransporter(direction)) {
-
-    }
+    if (isNextMoveTeletransporter(direction))
+        teletransport = true;
+    else
+        backTeletransport = true;
 
     if (direction == 'w')
     {
@@ -480,10 +502,20 @@ void MovePlayer(char direction)
 
     if (backButton)
         map[button.x][button.y] = button.character;
+
+    if (backTeletransport)
+    {
+        map[teletransporter.firstX][teletransporter.firstY] = teletransporter.character;
+        map[teletransporter.secondX][teletransporter.secondY] = teletransporter.character;
+    }
+
+    if (teletransport)
+        Teletransport();
 }
 
 void Level1()
 {
+    Init();
     DrawMap();
     AddDoor();
     AddPlayer();
@@ -501,6 +533,7 @@ void Level1()
 
 void Level2()
 {
+    Init();
     DrawMap();
     AddDoor();
     AddPlayer();
@@ -519,6 +552,7 @@ void Level2()
 
 void Level3()
 {
+    Init();
     DrawMap();
     AddDoor();
     AddPlayer();
@@ -553,10 +587,115 @@ bool Lose()
 {
     if (chance == 4)
     {
-        cout << "You've walked on Thorns 3 times and lost the came, what a pitty !" << endl;
+        chance = 1;
+        level = 1;
+        currentMapLength = level * 25;
+        cout << "You've walked on Thorns 3 times and lost the game, what a pitty !" << endl;
+        system("pause");
         return true;
     }
     return false;
+}
+
+void MainMenu()
+{
+    system("cls || clear");
+    cout << "*******************************************\n";
+    cout << "*  &                                      *\n";
+    cout << "*              Maze Escape Game       O   *\n";
+    cout << "*      >                                  *\n";
+    cout << "*                                  @      *\n";
+    cout << "*    1 - Play                             *\n";
+    cout << "*    2 - Tutorial                         *\n";
+    cout << "*    3 - Leave                            *\n";
+    cout << "*                               #         *\n";
+    cout << "*               >                         *\n";
+    cout << "*                                         *\n";
+    cout << "*******************************D***********\n\n";
+}
+
+void Tutorial()
+{
+    system("cls || clear");
+    cout << "*******************************************\n";
+    cout << "*  &                                      *\n";
+    cout << "*              Maze Escape Game       O   *\n";
+    cout << "*      >                                  *\n";
+    cout << "*                                  @      *\n";
+    cout << "*    & - Player                           *\n";
+    cout << "*    @ - Key                              *\n";
+    cout << "*    * - Wall                             *\n";
+    cout << "*    D - Closed Door                      *\n";
+    cout << "*    = - Open Door                        *\n";
+    cout << "*    O - Button                           *\n";
+    cout << "*    # - Thorn                            *\n";
+    cout << "*    > - Teletransport                    *\n";
+    cout << "*                                         *\n";
+    cout << "*                                         *\n";
+    cout << "*    Use W,A,S,D to move the player       *\n";
+    cout << "*                                         *\n";
+    cout << "*  Using I you can interact with objects  *\n";
+    cout << "*                                         *\n";
+    cout << "*    Interacting with key opens the door  *\n";
+    cout << "*                                         *\n";
+    cout << "*   Once door is open you can step on it  *\n";
+    cout << "*           to pass the level             *\n";
+    cout << "*                                         *\n";
+    cout << "*   Stepping on the button moves the key  *\n";
+    cout << "*     to a random position on the map     *\n";
+    cout << "*                                         *\n";
+    cout << "*    Touching a thorn hurts you and the   *\n";
+    cout << "*   level is restarted, but be aware that *\n";
+    cout << "*          you have only 3 lifes          *\n";
+    cout << "*                                         *\n";
+    cout << "*  Stepping on teletranspot teleport you  *\n";
+    cout << "*     To the other one, and vice-versa    *\n";
+    cout << "*                                         *\n";
+    cout << "*   Once you conclude the 3 levels you    *\n";
+    cout << "*             win the game                *\n";
+    cout << "*                                         *\n";
+    cout << "*  Otherwise, if you lose your 3 chances  *\n";
+    cout << "*          you lose the game              *\n";
+    cout << "*                                         *\n";
+    cout << "*  Remember that life doesn't reload when *\n";
+    cout << "*           passing levels                *\n";
+    cout << "*                                         *\n";
+    cout << "*                               #         *\n";
+    cout << "*               >                         *\n";
+    cout << "*                                         *\n";
+    cout << "*******************************D***********\n\n";
+    system("pause");
+}
+
+void Leave()
+{
+    system("cls || clear");
+    cout << "*******************************************\n";
+    cout << "*  &                                      *\n";
+    cout << "*              Maze Escape Game       O   *\n";
+    cout << "*      >                                  *\n";
+    cout << "*                                  @      *\n";
+    cout << "*    What a pitty ;-;                     *\n";
+    cout << "*    I wish we had fun together           *\n";
+    cout << "*    But we are going to meet again !     *\n";
+    cout << "*    See ya                               *\n";
+    cout << "*                                         *\n";
+    cout << "*                                         *\n";
+    cout << "*                                         *\n";
+    cout << "*                                         *\n";
+    cout << "*                               #         *\n";
+    cout << "*               >                         *\n";
+    cout << "*                                         *\n";
+    cout << "*******************************D***********\n";
+}
+
+void Play() {
+    system("cls || clear");
+    Level1();
+    Level2();
+    if(level == 1)
+        return;
+    Level3();
 }
 
 int main()
@@ -565,5 +704,24 @@ int main()
 
     Init();
 
-    Level3();
+    int choice;
+    do
+    {
+        MainMenu();
+        cout << "Choice: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            Play();
+            break;
+        case 2:
+            Tutorial();
+            break;
+        case 3:
+            Leave();
+            break;
+        }
+    } while (choice != 3);
 }
